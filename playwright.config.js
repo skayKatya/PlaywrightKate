@@ -27,6 +27,7 @@ const config =  defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
+    testIdAttribute: 'data-qa',
     headless: false,
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: 'https://qauto.forstudy.space/',
@@ -64,13 +65,13 @@ const config =  defineConfig({
       teardown: 'teardown:stage'
     },
 
-    {
-      name: 'dev',
-      use: {
-        ...devices['Desktop Chrome'],
-        baseURL: 'https://qauto2.forstudy.space/',
-      },
-    },
+    // {
+    //   name: 'dev',
+    //   use: {
+    //     ...devices['Desktop Chrome'],
+    //     baseURL: 'https://qauto2.forstudy.space/',
+    //   },
+    // },
     // {
     //   name: 'chromium',
     //   use: {
