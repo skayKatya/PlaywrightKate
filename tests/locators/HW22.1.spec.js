@@ -49,7 +49,7 @@ test.describe("Welcome page", () => {
         const signupEmaiLocator = page.locator('#signupEmail')
         const prefics = 'aqa'
         const domain = '@gmail.com'
-        const signupEmail = prefics + Math.floor(Math.random() * 100) + domain
+        const signupEmail = prefics + Math.floor(Math.random() * 50) + domain
         await signupEmaiLocator.fill(signupEmail) 
 
         const signupPassword = page.locator('#signupPassword')
