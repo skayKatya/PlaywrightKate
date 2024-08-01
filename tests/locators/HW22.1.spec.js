@@ -251,7 +251,7 @@ test.describe("Welcome page", () => {
                 await signupPassword.fill('qwe123QWE!@#')
                 await signupRepeatPassword.fill('QWE!@#')
                 await signupRepeatPassword.blur()
-                await expect(fieldRepeatedPasswordError).toHaveText('Password has to be from 8 to 15 characters long and contain at least one integer, one capital, and one small letter')
+                await expect(fieldRepeatedPasswordError).toHaveText('Passwords do not match')
             })
 
             test("Verify border color is red on  Re-enter password field", async ({page}) => {
