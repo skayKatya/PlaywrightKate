@@ -1,3 +1,4 @@
+
 import { defineConfig, devices } from '@playwright/test'
 import dotenv from 'dotenv'
 import {config as appConfig} from "./config/config.js";
@@ -6,10 +7,9 @@ import {config as appConfig} from "./config/config.js";
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 dotenv.config({
-  // path: './.env'
-  path: process.env.ENV === 'dev' ? './env/.env.dev' : './env/.env.stage'
+  path: './.env'
+  // path: process.env.ENV === 'dev' ? './env/.env.dev' : './env/.env.stage'
 });
 
 /**
@@ -21,15 +21,14 @@ const config =  defineConfig({
   testIgnore: '/tests/**/*.skip.spec.js',
   globalSetup: process.env.ENV === 'stage' ? './global.setup.js' : undefined,
   globalTeardown: './global.teardown.js',
-  maxFailures: 10,
   /* Run tests in files in parallel */
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: 1,
+  retries: 0,
   /* Opt out of parallel tests on CI. */
-  workers: 3,
+  workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -51,24 +50,24 @@ const config =  defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: "setup:stage",
-      testMatch: 'tests/setup/**/*.setup.js'
-    },
-    {
-      name: 'teardown:stage',
-      testMatch: 'tests/teardown/**/*.teardown.js'
-    },
-    {
-      name: 'stage',
-      use: {
-        ...devices['Desktop Chrome'],
-        baseURL: 'https://qauto.forstudy.space/',
-      },
-      dependencies: ['setup:stage'],
-      teardown: 'teardown:stage'
-    },
-
+    // {
+    //   name: "setup:stage",
+    //   testMatch: 'tests/setup/**/*.setup.js'
+    // },
+    // {
+    //   name: 'teardown:stage',
+    //   testMatch: 'tests/teardown/**/*.teardown.js'
+    // },
+    // {
+    //   name: 'stage',
+    //   use: {
+    //     ...devices['Desktop Chrome'],
+    //     baseURL: 'https://qauto.forstudy.space/',
+    //   },
+    //   dependencies: ['setup:stage'],
+    //   teardown: 'teardown:stage'
+    // },
+    //
     // {
     //   name: 'dev',
     //   use: {
@@ -76,12 +75,12 @@ const config =  defineConfig({
     //     baseURL: 'https://qauto2.forstudy.space/',
     //   },
     // },
-    // {
-    //   name: 'chromium',
-    //   use: {
-    //     ...devices['Desktop Chrome'],
-    //   },
-    // },
+    {
+      name: 'chromium',
+      use: {
+        ...devices['Desktop Chrome'],
+      },
+    },
     // {
     //   name: 'firefox',
     //   use: {
@@ -122,7 +121,7 @@ const config =  defineConfig({
     //     baseURL: 'https://qauto.forstudy.space/',
     //   },
     // },
-    
+    //
     // {
     //   name: 'dev',
     //   use: {
@@ -141,4 +140,4 @@ const config =  defineConfig({
 });
 
 
-export default config 
+export default config
