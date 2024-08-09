@@ -65,8 +65,8 @@ const config =  defineConfig({
         ...devices['Desktop Chrome'],
         baseURL: 'https://qauto.forstudy.space/',
       },
-      dependencies: ['setup:stage'],
-      teardown: 'teardown:stage'
+      dependencies: ['setup:stage']
+      //teardown: 'teardown:stage'
     },
 
     // {

@@ -1,7 +1,7 @@
 import {expect, test} from "@playwright/test";
 import WelcomePage from "../../src/pageObjects/welcomePage/WelcomePage.js";
 
-test.describe.only("Sign UP into Hillel", ()=>{
+test.describe("Sign UP into Hillel", ()=>{
     let signUpPopup
 
     test.beforeEach(async ({page})=>{
@@ -169,7 +169,7 @@ test.describe.only("Sign UP into Hillel", ()=>{
         await expect(signUpPopup.signupRepeatPasswordValidationMessage).toHaveText('Re-enter password required')
     })
 
-    test.only("Verify error about mismatching passwords on Re-enter password field", async ({page}) => {
+    test("Verify error about mismatching passwords on Re-enter password field", async ({page}) => {
 
         await signUpPopup.fill({
             password: '123QWE!@#qwe',
