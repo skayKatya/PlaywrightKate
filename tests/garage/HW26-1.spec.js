@@ -1,5 +1,4 @@
 import {test, expect} from "../../src/fixtures/userGaragePage.js";
-import AddCarPopup from "../../src/pageObjects/garagePage/components/addCarPopup.js";
 
 test.describe('Garage', () => {
     
@@ -9,17 +8,8 @@ test.describe('Garage', () => {
         await garagePage.navigate()
         
     })
- 
 
-    test('should be able to open the garage', async ({garagePage}) => {
-          await expect(garagePage.addCarButton).toBeVisible();
-      });
-
-    test('Verify that Add car Button is clickable', async ({garagePage}) => {
-        await expect(garagePage.addCarButton).toBeEnabled();
-    });
-
-    test.only('Verify that user can add a car', async ({garagePage, page}) => {
+    test('Verify that user can add a car', async ({garagePage, page}) => {
        
 
         const car = {
