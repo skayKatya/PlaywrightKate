@@ -1,7 +1,7 @@
 import {test, expect} from "../../src/fixtures/profilePage.js";
 
 
-test.describe('Profile request data', () => {
+test.describe.only('Profile request data', () => {
     
     test.beforeEach(async ({profilePage}) => {
         await profilePage.navigate()

@@ -1,6 +1,6 @@
 import {test, expect} from "../../src/fixtures/userGaragePage.js";
 
-test.describe.only('Creating cars', () => {
+test.describe('Creating cars', () => {
 
     test.afterEach(async ({request})=>{
         const carsList = await request.get('/api/cars')
