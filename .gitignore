@@ -133,3 +133,4 @@ dist
 /blob-report/
 /playwright/.cache/
 /state/user1.json
+./state/user1.json
