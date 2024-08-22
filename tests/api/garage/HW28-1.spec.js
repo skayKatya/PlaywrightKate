@@ -1,4 +1,3 @@
-//import {expect, test} from "../../../src/fixtures/myFixtures.js";
 import {test, expect} from "../../../src/fixtures/userGaragePage.js";
 import {CAR_BRANDS} from "../../../src/data/cars.js";
 import {CAR_MODELS} from "../../../src/data/carModels.js";
@@ -156,7 +155,7 @@ test.describe("Create car Porsche", ()=>{
     }
 })
 
-test.describe.only("Create car Fiat", ()=>{
+test.describe("Create car Fiat", ()=>{
     const carBrand = CAR_BRANDS.Fiat
 
     for (const carModel of Object.values(CAR_MODELS.FIAT)) {
@@ -193,3 +192,4 @@ test.describe.only("Create car Fiat", ()=>{
         })
     }
 })
+
