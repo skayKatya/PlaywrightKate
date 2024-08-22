@@ -70,6 +70,7 @@ test.describe.only("Add expenses", ()=>{
             "totalCost": expect.any(Number)
             }
         })
+        expect(actualBody.data, "Expenses were added").toMatchObject(requestBody)
         })
     })
 }
