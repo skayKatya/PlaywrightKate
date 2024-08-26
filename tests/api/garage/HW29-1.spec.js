@@ -148,7 +148,7 @@ test.describe("Testing controllers", ()=>{
     }
 
     for (const carModel of Object.values(CAR_MODELS.AUDI)) {
-        test.only(`Edit car by ID with brand ${carBrand.title} and model ${carModel.title}`, async({carsController})=>{
+        test(`Edit car by ID with brand ${carBrand.title} and model ${carModel.title}`, async({carsController})=>{
             // Arrange
             const requestBody = {
                 "carBrandId": carBrand.id,
