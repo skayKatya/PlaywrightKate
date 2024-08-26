@@ -1,6 +1,10 @@
-import {test as base, expect as baseExpect} from "@playwright/test";
+import {test as base, expect as baseExpect, request as apiRequest} from "@playwright/test";
 import GaragePage from "../pageObjects/garagePage/GaragePage.js";
 import {USER1_STORAGE_STATE_PATH} from "../data/constants.js";
+import {faker} from "@faker-js/faker";
+import {CAR_BRANDS} from "../data/cars.js";
+import {CAR_MODELS} from "../data/carModels.js";
+import CarsController from "../controllers/CarsController.js";
 
 export const test = base.extend({
     context: async ({browser}, use)=>{
@@ -13,6 +17,14 @@ export const test = base.extend({
 
         await ctx.close()
     },
+    request: async ({}, use)=>{
+        const ctx = await apiRequest.newContext({
+            //  get from file
+            storageState: USER1_STORAGE_STATE_PATH
+        })
+        await use(ctx)
+        await ctx.dispose()
+    },
     garagePage: async ({page}, use)=>{
         // before test
         const gp = new GaragePage(page)
@@ -21,6 +33,27 @@ export const test = base.extend({
         use(gp)
 
         // after test
+    },
+    carsController:  async ({request}, use)=>{
+        await use(new CarsController(request))
+    },
+    newCar: async ({request, carsController}, use)=>{
+        // before test
+        const carBrand = CAR_BRANDS.Audi
+        const carModel = CAR_MODELS.AUDI
+
+        const requestBody = {
+            "carBrandId": carBrand.id,
+            "carModelId": carModel.id,
+            "mileage": faker.number.int({min: 1, max: 100})
+        }
+        const response = await carsController.createCar(requestBody)
+        const body = await response.json()
+        // pass to test
+        use(body.data)
+
+        // after test
+        await request.delete(`/api/cars/${body.id}`)
     },
 })
 

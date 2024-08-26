@@ -1,9 +1,10 @@
 import {test, expect} from "../../../src/fixtures/fuelExpensePage.js";
 import {CAR_BRANDS} from "../../../src/data/cars.js";
 import {CAR_MODELS} from "../../../src/data/carModels.js";
+import moment from "moment";
 
 
-test.describe.only("Add expenses", ()=>{
+test.describe("Add expenses", ()=>{
     const carBrand = CAR_BRANDS.Audi
    
     test.beforeEach(async ({request})=>{
@@ -28,7 +29,7 @@ test.describe.only("Add expenses", ()=>{
                     "carModelId": carModel.id,
                     "mileage": Math.floor(Math.random() * 100)
                 }
-               
+                
                 const response = await request.post('/api/cars', {
                     data: requestBody
                 })
@@ -52,6 +53,7 @@ test.describe.only("Add expenses", ()=>{
             
         }
   
+        const requestTime = new Date()
         const response = await request.post('/api/expenses', {
             data: requestBody
         })
@@ -70,6 +72,10 @@ test.describe.only("Add expenses", ()=>{
             "totalCost": expect.any(Number)
             }
         })
+        expect(actualBody.data, "Expenses were added").toMatchObject(requestBody)
+        expect(actualBody.data.id, "ID should be positive number").toBeGreaterThan(0)
+        expect(moment(actualBody.data.reportedAt).isValid(), "Date should be valid").toBeTruthy()
+        expect(moment(actualBody.data.reportedAt).isSame(requestTime), "Date should be valid").toBe(true)
         })
     })
 }
