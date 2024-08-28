@@ -3,7 +3,7 @@ import {CAR_BRANDS} from "../../../src/data/cars.js";
 import {CAR_MODELS} from "../../../src/data/carModels.js";
 
 
-test.describe.only("Add expenses", ()=>{
+test.describe("Add expenses", ()=>{
     const carBrand = CAR_BRANDS.Audi
    
     test.beforeEach(async ({request})=>{

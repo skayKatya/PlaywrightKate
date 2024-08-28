@@ -1,5 +1,5 @@
 import BasePage from "../BasePage.js";
-import AddCarPopup from "./components/addCarPopup.js";
+import AddCarPopup from "../garagePage/components/AddCarPopup.js";
 
 export default class GaragePage  extends BasePage {
     constructor(page) {
