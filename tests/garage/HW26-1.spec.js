@@ -1,4 +1,4 @@
-import {test, expect} from "../../src/fixtures/userGaragePage.js";
+import {test, expect} from "../../src/fixtures/userGaragePage";
 
 test.describe('Garage', () => {
     
