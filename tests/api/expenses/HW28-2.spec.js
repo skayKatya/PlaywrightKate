@@ -48,7 +48,7 @@ test.describe("Add expenses", ()=>{
             "liters": Math.floor(Math.random() * 100),
             "mileage": mileage,
             "reportedAt": new Date().toISOString(),
-            "totalCost": Math.floor(Math.random() * 100)
+            "totalCost": Math.floor(Math.random() * 2) +1
             
         }
   
