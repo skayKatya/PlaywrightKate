@@ -29,6 +29,8 @@ test.describe("Testing controllers", ()=>{
     
             // Assert
             expect(response.status(), "Status code should be valid").toBe(200)
+            const actualBody = await response.json()
+            expect(actualBody.data.id).toEqual(carBrand.id)
         })
     }   
 })

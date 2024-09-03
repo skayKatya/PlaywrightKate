@@ -23,18 +23,22 @@ test.describe("Testing controllers", ()=>{
     })
 
     for (const carModel of Object.values(CAR_MODELS.AUDI)) {
-        test.only(`Delete existing car with brand ${carBrand.title} and model ${carModel.title}`, async({carsController})=>{
+        test(`Delete existing car with brand ${carBrand.title} and model ${carModel.title}`, async({carsController})=>{
                 // Arrange
                 const requestBody = {
                     "carBrandId": carBrand.id,
                     "carModelId": carModel.id,
                     "mileage": Math.floor(Math.random() * 100)
                 }
+
+                const errorMessage = {"message": "Car not found", "status": "error"}
                 // ACT
                 const responseCreate = await carsController.createCar(requestBody)
                 const createCarResponseBody = await responseCreate.json();
                 const responseDelete = await carsController.deleteCar(createCarResponseBody.data.id)
                 const deleteCarResponseBody = await responseDelete.json();
+                const responseGet = await carsController.getCarsByID(createCarResponseBody.data.id)
+                const getCarResponseBody = await responseGet.json();
     
             // Assert
             expect(responseDelete.status(), "Status code should be valid").toBe(200)
@@ -44,6 +48,7 @@ test.describe("Testing controllers", ()=>{
                 "carId": createCarResponseBody.data.id
                 }
             })
+            expect(getCarResponseBody).toEqual(errorMessage)
         })
     }
        

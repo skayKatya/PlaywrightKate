@@ -33,11 +33,30 @@ test.describe("Testing controllers", ()=>{
             // ACT
             
             const response = await carsController.createCar(requestBody)
-            const actualBody = await response.json();
-            const responseBody = await carsController.getCarsByID(actualBody.data.id)
-            carsIdToDelete = actualBody.data.id
+            const createResponseBody = await response.json();
+            const responseBody = await carsController.getCarsByID(createResponseBody.data.id)
+            carsIdToDelete = createResponseBody.data.id
         // Assert
         expect(responseBody.status(), "Status code should be valid").toBe(200)
+        const actualBody = await response.json()
+        expect(actualBody.data.id).toEqual(createResponseBody.data.id)
+        expect(actualBody.data).toEqual(
+            {
+                "status": "ok",
+                "data": {
+                    "id": createResponseBody.data.id,
+                    "carBrandId": requestBody.carBrandId,
+                    "carModelId": requestBody.carModelId,
+                    "initialMileage": requestBody.mileage,
+                    "updatedMileageAt": createResponseBody.data.updatedMileageAt,
+                    "carCreatedAt": createResponseBody.data.carCreatedAt,
+                    "mileage": requestBody.mileage,
+                    "brand": carBrand.title,
+                    "model": carModel.title,
+                    "logo": carBrand.logoFilename
+                }
+              }
+        )
         })
     }
  

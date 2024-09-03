@@ -6,9 +6,9 @@ import { faker } from '@faker-js/faker';
 import CarsController from "../../../src/controllers/CarsController.js";
 
 
-test.describe("Testing controllers", ()=>{
+test.describe.only("Testing controllers", ()=>{
     const carBrand = CAR_BRANDS.Audi
-    const carModel = CAR_MODELS.AUDI.TT
+    const carModel = CAR_MODELS.AUDI
 
     let carsIdToDelete
 
@@ -31,20 +31,43 @@ test.describe("Testing controllers", ()=>{
                 "mileage": Math.floor(Math.random() * 100)
             }
 
-            const updatedBody ={
+            const updatedBody = {
                 "carBrandId": carBrand.id,
                 "carModelId": carModel.id,
                 "mileage": faker.number.int({min: 100, max: 200})
             }
+
+            
             // ACT
             
-            const response = await carsController.createCar(requestBody)
-            const actualBody = await response.json();
-            const responseBody = await carsController.editCarByID(actualBody.data.id, updatedBody)
-            carsIdToDelete = actualBody.data.id
+            const createResponse = await carsController.createCar(requestBody)
+            const createResponseBody = await createResponse.json();
+            const carId = createResponseBody.data.id;
+
+            const editResponse = await carsController.editCarByID(carId, updatedBody);
+            const editResponseBody = await editResponse.json();
+           
+            carsIdToDelete = carId
         // Assert
-        expect(responseBody.status(), "Status code should be valid").toBe(200)
-        })
-    }
-       
+        expect(editResponse.status()).toBe(200);
+
+            const expectedResponse = {
+                status: "ok",
+                data: {
+                    id: carId,
+                    carBrandId: carBrand.id,
+                    carModelId: carModel.id,
+                    initialMileage: requestBody.mileage,
+                    updatedMileageAt: editResponseBody.data.updatedMileageAt,
+                    carCreatedAt: editResponseBody.data.carCreatedAt,
+                    mileage: updatedBody.mileage,
+                    brand: carBrand.title,
+                    model: carModel.title,
+                    logo: carBrand.logoFilename
+                }
+            };
+
+            expect(editResponseBody).toEqual(expectedResponse);
+        });
+    }    
 })

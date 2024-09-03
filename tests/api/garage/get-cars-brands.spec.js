@@ -23,7 +23,33 @@ test.describe("Testing controllers", ()=>{
     })
 
     test(`Gets car brands`, async({carsController})=>{
-        const carslist = CAR_BRANDS
+        const carBrands = [
+            {
+              "id": 1,
+              "title": "Audi",
+              "logoFilename": "audi.png"
+            },
+            {
+              "id": 2,
+              "title": "BMW",
+              "logoFilename": "bmw.png"
+            },
+            {
+              "id": 3,
+              "title": "Ford",
+              "logoFilename": "ford.png"
+            },
+            {
+              "id": 4,
+              "title": "Porsche",
+              "logoFilename": "porsche.png"
+            },
+            {
+              "id": 5,
+              "title": "Fiat",
+              "logoFilename": "fiat.png"
+            }
+          ]
 
         // ACT
         const response = await carsController.getCarsBrands()
@@ -31,7 +57,6 @@ test.describe("Testing controllers", ()=>{
         // Assert
         expect(response.status(), "Status code should be valid").toBe(200)
         const actualBody = await response.json()
-        expect(actualBody.data).toHaveLength(carslist)
+        expect(actualBody.data).toMatchObject(carBrands)
     })
-
 })
